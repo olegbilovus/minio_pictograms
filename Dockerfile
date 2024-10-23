@@ -19,8 +19,8 @@ WORKDIR /data
 
 RUN minio server /data --address ":9000" --console-address ":9001" & \
     server_pid=$!; \
-    until mc alias set local http://localhost:9000 ${ADMIN} ${ADMIN_PWD}; do sleep 1; done; \
     sleep 15; \
+    until mc alias set local http://localhost:9000 ${ADMIN} ${ADMIN_PWD}; do sleep 1; done; \
     mc mb local/pictograms; \
     mc cp /pictograms.tar local/pictograms/ --disable-multipart --attr "X-Amz-Meta-Snowball-Auto-Extract=true"; \
     mc anonymous set download local/pictograms; \
