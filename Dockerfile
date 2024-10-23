@@ -24,6 +24,7 @@ RUN minio server /data --address ":9000" --console-address ":9001" & \
     mc mb local/pictograms; \
     mc cp /pictograms.tar local/pictograms/ --disable-multipart --attr "X-Amz-Meta-Snowball-Auto-Extract=true"; \
     mc anonymous set download local/pictograms; \
+    sleep 60; \
     kill $server_pid
 
 
