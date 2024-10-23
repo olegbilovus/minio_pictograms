@@ -23,7 +23,7 @@ RUN minio server /data & \
     mc mb local/pictograms; \
     mc cp /pictograms.tar local/pictograms/ --disable-multipart --attr "X-Amz-Meta-Snowball-Auto-Extract=true"; \
     mc anonymous set download local/pictograms; \
-    kill $server_pid;
+    kill $server_pid
 
 
 FROM docker.io/minio/minio:latest
