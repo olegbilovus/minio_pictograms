@@ -12,7 +12,7 @@ COPY ${IMAGES_DIR} /pictograms
 
 RUN minio server /data & \
     server_pid=$!; \
-    until mc alias set local http://localhost:9000 ${ADMIN} ${ADMIN_PWD}; do sleep 1; done; \
+    until mc alias set local http://127.0.0.1:9000 ${ADMIN} ${ADMIN_PWD}; do sleep 1; done; \
     mc mb local/pictograms; \
     mc cp --recursive /pictograms/ local/pictograms/; \
     mc anonymous set download local/pictograms; \
