@@ -3,7 +3,7 @@ FROM alpine:latest AS archive-images
 ARG IMAGES_DIR=./pictograms/images
 COPY ${IMAGES_DIR} /pictograms
 
-RUN tar -cvf /pictograms.tar /pictograms
+RUN tar -cf /pictograms.tar /pictograms
 
 
 FROM docker.io/minio/minio:latest AS upload-pictograms
