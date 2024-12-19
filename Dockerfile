@@ -1,4 +1,4 @@
-FROM alpine:latest AS archive-images
+FROM alpine:3 AS archive-images
 
 ARG IMAGES_DIR=./pictograms/images
 COPY ${IMAGES_DIR} /pictograms
@@ -6,7 +6,7 @@ COPY ${IMAGES_DIR} /pictograms
 RUN tar -cf /pictograms.tar /pictograms
 
 
-FROM docker.io/minio/minio:latest AS upload-pictograms
+FROM docker.io/minio/minio:RELEASE.2024-12-18T13-15-44Z AS upload-pictograms
 
 COPY --from=archive-images /pictograms.tar /pictograms.tar
 
@@ -26,7 +26,7 @@ RUN minio server /data --address "127.0.0.1:9000" --console-address "127.0.0.1:9
     kill $server_pid
 
 
-FROM docker.io/minio/minio:latest
+FROM docker.io/minio/minio:RELEASE.2024-12-18T13-15-44Z
 
 COPY --from=upload-pictograms /data /data
 
