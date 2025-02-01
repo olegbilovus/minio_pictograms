@@ -1,3 +1,5 @@
+ARG MINIO_TAG=RELEASE.2025-01-20T14-49-07Z
+
 FROM alpine:3 AS archive-images
 
 ARG IMAGES_DIR=./pictograms/images
@@ -5,7 +7,7 @@ COPY ${IMAGES_DIR} /pictograms
 
 RUN tar -cf /pictograms.tar /pictograms
 
-ARG MINIO_TAG=RELEASE.2025-01-20T14-49-07Z
+ARG MINIO_TAG
 FROM docker.io/minio/minio:${MINIO_TAG} AS upload-pictograms
 
 COPY --from=archive-images /pictograms.tar /pictograms.tar
