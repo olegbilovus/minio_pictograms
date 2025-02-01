@@ -5,8 +5,9 @@ COPY ${IMAGES_DIR} /pictograms
 
 RUN tar -cf /pictograms.tar /pictograms
 
+ARG MINIO_TAG=RELEASE.2025-01-20T14-49-07Z
 
-FROM docker.io/minio/minio:RELEASE.2025-01-20T14-49-07Z AS upload-pictograms
+FROM docker.io/minio/minio:${MINIO_TAG} AS upload-pictograms
 
 COPY --from=archive-images /pictograms.tar /pictograms.tar
 
@@ -26,7 +27,7 @@ RUN minio server /data --address "127.0.0.1:9000" --console-address "127.0.0.1:9
     kill $server_pid
 
 
-FROM docker.io/minio/minio:RELEASE.2025-01-20T14-49-07Z
+FROM docker.io/minio/minio:${MINIO_TAG}
 
 COPY --from=upload-pictograms /data /data
 
